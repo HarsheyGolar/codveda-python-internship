@@ -3,7 +3,10 @@
 <br/>
 
 <!-- Animated Typing Banner -->
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=36&pause=1000&color=00D4FF&center=true&vCenter=true&width=700&lines=🧮+Simple+Calculator;Python+%7C+Clean+%7C+Modular" alt="Typing SVG" />
+<img
+  src="https://readme-typing-svg.demolab.com/?font=Fira+Code&weight=700&size=36&pause=1000&color=00D4FF&center=true&vCenter=true&width=760&lines=%F0%9F%A7%AE+Simple+Calculator;Python+%7C+Clean+%7C+Modular"
+  alt="Typing SVG"
+/>
 
 <br/>
 
