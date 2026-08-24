@@ -18,17 +18,21 @@ def division(a, b):
         return "Error: Division by zero is not allowed."
 
 def main():
+    # Get Two Numbers From the User.
     a = int(input("Enter a number: "))
     b = int(input("Enter a number: "))
 
+    # Display the available arithmetic operations.
     print("\nChoose the Operation.")
     print("1. Addition(+)")
     print("2. Subtraction(-)")
     print("3. Multiplication(×)")
     print("4. Division(÷)")
 
+    # Read the user's operation choice.
     choice = input("Enter Your Choice (1/2/3/4): ")
 
+    # Execute the selected operation.
     if choice == "1":
         print(addition(a, b))
     elif choice == "2":
@@ -37,6 +41,7 @@ def main():
         print(multiplication(a, b))
     elif choice == "4":
         print(division(a, b))
+         # Handle invalid operation selections.
     else:
         print(f"Invalid choice! Please select a valid operation menu number: {choice}")
 
