@@ -213,7 +213,6 @@ print(multiplication(4, 2))  # ✖️ Tests multiplication
 48
 -2
 Error: Division by zero is not allowed.
-None
 8
 ```
 
