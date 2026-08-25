@@ -275,6 +275,6 @@ MIT License — Copyright (c) 2026 Harshey Golar
 
 <br/>
 
-*Made with ❤️ and Python during the CodVeda Technologies Python Internship*
+*Made with ❤️ and Python during the CodVeda Technologies Python Developer Internship*
 
 </div>
