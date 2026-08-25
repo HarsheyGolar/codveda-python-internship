@@ -129,7 +129,7 @@ def division(a, b):
     try:
         return a / b
     except ZeroDivisionError:
-        print("Error: Division by zero is not allowed.")
+        return "Error: Division by zero is not allowed."
 ```
 
 > Returns the **quotient** (`a / b`). Safely handles division by zero.
@@ -226,7 +226,7 @@ The `division()` function uses Python's `try...except` block to gracefully catch
 try:
     return a / b
 except ZeroDivisionError:
-    print("Error: Division by zero is not allowed.")
+    return "Error: Division by zero is not allowed."
 ```
 
 > 💡 Instead of crashing the program, it prints a user-friendly error message and returns `None`.
@@ -261,7 +261,7 @@ MIT License — Copyright (c) 2026 Harshey Golar
 <div align="center">
 
 ### **Harshey Golar**
-*Python Intern @ CodVeda — Level 1*
+*Python Intern @ CodVeda Technologies — Level 1*
 
 <br/>
 
@@ -275,6 +275,6 @@ MIT License — Copyright (c) 2026 Harshey Golar
 
 <br/>
 
-*Made with ❤️ and Python during the CodVeda Python Internship*
+*Made with ❤️ and Python during the CodVeda Technologies Python Internship*
 
 </div>
