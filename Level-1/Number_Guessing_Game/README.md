@@ -87,36 +87,11 @@ This project is part of **Level 1, Task 2** of the **CodVeda Technologies Python
 
 Here's a visual flowchart of the complete game logic:
 
-```mermaid
-graph TD
-    A[Start Game] --> B[Generate random number between 1 and 100]
-    B --> C[Set attempts = 5]
-    C --> D[Display game banner and instructions]
-    D --> E{Attempts greater than 0?}
+<div align="center">
 
-    E -->|No| F[Game Over - reveal the secret number]
-    E -->|Yes| G[Prompt player for a guess]
+<img src="./assets/game-flowchart.png" alt="Number Guessing Game Flowchart" width="100%"/>
 
-    G --> H{Valid integer?}
-    H -->|No| I[Show error message - no attempt penalty]
-    I --> G
-
-    H -->|Yes| J{Guess equals secret?}
-    J -->|Yes| K[Congratulations - player wins]
-    J -->|No| L{Guess less than secret?}
-
-    L -->|Yes| M[Too Low - try a higher number]
-    L -->|No| N[Too High - try a lower number]
-
-    M --> O[Decrement attempts]
-    N --> O
-    O --> E
-
-    style A fill:#4CAF50,stroke:#333,color:#fff
-    style K fill:#4CAF50,stroke:#333,color:#fff
-    style F fill:#f44336,stroke:#333,color:#fff
-    style I fill:#FF9800,stroke:#333,color:#fff
-```
+</div>
 
 ## 🔧 Function Reference
 
