@@ -75,6 +75,8 @@ This project is part of **Level 1, Task 2** of the **CodVeda Technologies Python
 
 ```
 📦 Number_Guessing_Game/
+|── Assets
+      |── game-flowchart.png   # Flowchart of How It Works.
 ├── 🎮 guessing_game.py        # Core game logic, main entry point
 ├── 🧪 test_guessing_game.py   # Test runner / alternate entry point
 ├── 🚫 .gitignore              # Excludes __pycache__/ from version control
