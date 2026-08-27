@@ -75,8 +75,6 @@ This project is part of **Level 1, Task 2** of the **CodVeda Technologies Python
 
 ```
 📦 Number_Guessing_Game/
-|── Assets
-      |── game-flowchart.png   # Flowchart of How It Works.
 ├── 🎮 guessing_game.py        # Core game logic, main entry point
 ├── 🧪 test_guessing_game.py   # Test runner / alternate entry point
 ├── 🚫 .gitignore              # Excludes __pycache__/ from version control
@@ -91,9 +89,15 @@ Here's a visual flowchart of the complete game logic:
 
 <div align="center">
 
-<img src="./assets/game-flowchart.png" alt="Number Guessing Game Flowchart" width="100%"/>
+<img
+  src="./assets/game-flowchart.png"
+  alt="Number Guessing Game Flowchart"
+  width="100%"
+/>
 
 </div>
+
+---
 
 ## 🔧 Function Reference
 
@@ -172,22 +176,62 @@ play_game()
 
 ## 🧪 Running Tests
 
-A dedicated test script [`test_guessing_game.py`](./test_guessing_game.py) is included as an alternate entry point:
+The project includes an automated test suite built with Python's built-in `unittest` framework.
+
+Run the complete test suite with:
 
 ```bash
-python test_guessing_game.py
+python -m unittest test_guessing_game.py -v
 ```
 
-**What it does:**
+### What It Tests
+
+| Test | Purpose |
+|---|---|
+| `test_correct_guess` | Verifies that a correct guess results in a winning message |
+| `test_too_low_guess` | Verifies the `Too Low!` hint |
+| `test_too_high_guess` | Verifies the `Too High!` hint |
+| `test_invalid_input_no_attempt_penalty` | Verifies invalid input does not consume an attempt |
+| `test_game_over_after_max_attempts` | Verifies the game ends after five valid attempts |
+
+### Testing Techniques Used
+
+- `unittest.TestCase` for test organization
+- `unittest.mock.patch` for mocking random numbers and user input
+- `io.StringIO` for capturing terminal output
+- `redirect_stdout` for validating printed messages
+
+The random number generator is mocked to produce predictable test results, while `input()` is mocked to simulate different player interactions.
+
+Example:
 
 ```python
-from guessing_game import play_game
-
-if __name__ == "__main__":
-    play_game()
+@patch("guessing_game.random.randint", return_value=50)
+@patch("builtins.input", side_effect=["25", "50"])
 ```
 
-> 🔍 This validates that the `play_game()` function is properly importable as a module and executes correctly when called externally.
+This simulates:
+
+```text
+Secret number → 50
+First guess   → 25
+Second guess  → 50
+```
+
+Expected behavior:
+
+```text
+Too Low!
+Congratulations!
+```
+
+A successful test run should end with:
+
+```text
+Ran 5 tests
+
+OK
+```
 
 ---
 
