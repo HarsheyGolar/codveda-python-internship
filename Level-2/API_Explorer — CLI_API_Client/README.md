@@ -88,19 +88,32 @@ Pretty-Printed JSON Output
 
 ## 🏗️ Architecture
 
-```mermaid
-flowchart TD
-    A["User enters API URL"] --> B["fetch_data(url)"]
-    B --> C["HTTP Response"]
-    C --> D["parse_data(response)"]
-    D --> E["format_data(data)"]
-    E --> F["Pretty JSON in terminal"]
+The API Explorer follows a simple modular pipeline that separates user input, API communication, response validation, JSON parsing, formatting, and terminal output.
 
-    C --> G{"Status code successful?"}
-    G -->|Yes| D
-    G -->|No| H["Display failure message"]
-```
+<div align="center">
 
+<img src="./assets/api-explorer-architecture.png" alt="API Explorer Architecture" width="100%"/>
+
+</div>
+
+### Core Flow
+
+```text
+User Input
+    ↓
+get_url()
+    ↓
+fetch_data(url)
+    ↓
+HTTP Response
+    ↓
+Status Code Check
+    ├── Non-200 → Error Handling
+    └── 200 → parse_data(response)
+                    ↓
+              format_data(data)
+                    ↓
+              Pretty JSON Output
 ---
 
 ## 📁 Project Structure
