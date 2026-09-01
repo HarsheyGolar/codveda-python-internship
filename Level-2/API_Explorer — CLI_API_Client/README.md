@@ -114,12 +114,14 @@ Status Code Check
               format_data(data)
                     ↓
               Pretty JSON Output
+```
+
 ---
 
 ## 📁 Project Structure
 
 ```text
-API Explorer — CLI API Client/
+API_Explorer — CLI_API_Client/
 │
 ├── api_explorer.py
 │   ├── get_url()
@@ -128,16 +130,23 @@ API Explorer — CLI API Client/
 │   └── format_data()
 │
 ├── main.py
-│   └── CLI interface and request flow
+│   └── CLI entry point and banner display
 │
 ├── test_api_explorer.py
-│   └── Automated unit tests
+│   └── Unit tests for requests, parsing, and formatting
+│
+├── assets/
+│   └── api-explorer-architecture.png
+│       └── Architecture diagram for the project
 │
 ├── README.md
 │   └── Project documentation
 │
-└── .venv/
-    └── Virtual environment
+├── .venv/
+│   └── Virtual environment (local setup)
+│
+└── __pycache__/
+    └── Python bytecode cache
 ```
 
 ---
