@@ -88,15 +88,29 @@ Pretty-Printed JSON Output
 
 ## 🏗️ Architecture
 
-```mermaid
-flowchart TD
-    A[User enters API URL] --> B[fetch_data]
-    B --> C[HTTP Response]
-    C --> D{Status code 200?}
-    D -->|Yes| E[parse_data]
-    E --> F[format_data]
-    F --> G[Pretty JSON Output]
-    D -->|No| H[Display Error Message]
+```text
+User enters API URL
+        │
+        ▼
+   fetch_data()
+        │
+        ▼
+   HTTP Response
+        │
+        ▼
+  Status code 200?
+      /      \
+     /        \
+    Yes       No
+     │         │
+     ▼         ▼
+parse_data()  Display Error Message
+     │
+     ▼
+format_data()
+     │
+     ▼
+Pretty JSON Output
 ```
 
 ---
