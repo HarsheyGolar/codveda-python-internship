@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}DjangoCart — Continue with Google{% endblock %}
+
+{% block body_class %}social-login-page{% endblock %}
+
+{% block extra_css %}
+<style>
+    .social-login-page {
+        background:
+            radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.16), transparent 30%),
+            radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.14), transparent 30%),
+            linear-gradient(135deg, #eef2ff 0%, #f8faff 50%, #f3e8ff 100%);
+        min-height: 100vh;
+    }
+
+    .social-login-wrapper {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+    }
+
+    .social-login-card {
+        width: 100%;
+        max-width: 520px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        border-radius: 28px;
+        padding: 42px;
+        box-shadow:
+            0 25px 60px rgba(30, 41, 59, 0.12),
+            0 8px 20px rgba(99, 102, 241, 0.08);
+        text-align: center;
+    }
+
+    .social-icon {
+        width: 76px;
+        height: 76px;
+        margin: 0 auto 24px;
+        border-radius: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .social-login-card h1 {
+        margin: 0 0 12px;
+        font-size: 30px;
+        line-height: 1.2;
+        font-weight: 800;
+        color: #111827;
+    }
+
+    .social-login-card p {
+        margin: 0 auto 30px;
+        max-width: 400px;
+        color: #6b7280;
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .continue-btn {
+        width: 100%;
+        border: none;
+        border-radius: 14px;
+        padding: 14px 20px;
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 10px 24px rgba(79, 70, 229, 0.22);
+    }
+
+    .continue-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(79, 70, 229, 0.28);
+    }
+
+    .cancel-btn {
+        display: inline-block;
+        margin-top: 18px;
+        color: #6b7280;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .cancel-btn:hover {
+        color: #4f46e5;
+    }
+
+    .secure-note {
+        margin-top: 26px;
+        padding-top: 20px;
+        border-top: 1px solid #eef0f4;
+        color: #9ca3af;
+        font-size: 12px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="social-login-wrapper">
+    <div class="social-login-card">
+
+        <div class="social-icon">
+            <span style="
+                background: conic-gradient(
+                    from -45deg,
+                    #4285F4 0deg 90deg,
+                    #34A853 90deg 180deg,
+                    #FBBC05 180deg 270deg,
+                    #EA4335 270deg 360deg
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            ">
+                G
+            </span>
+        </div>
+
+        {% if process == "connect" %}
+            <h1>Connect {{ provider.name }}</h1>
+
+            <p>
+                You are about to connect your
+                <strong>{{ provider.name }}</strong>
+                account to your DjangoCart account.
+            </p>
+        {% else %}
+            <h1>Continue with {{ provider.name }}</h1>
+
+            <p>
+                You're about to sign in to
+                <strong>DjangoCart</strong>
+                using your {{ provider.name }} account.
+            </p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <button type="submit" class="continue-btn">
+                {% if process == "connect" %}
+                    Connect with {{ provider.name }}
+                {% else %}
+                    Continue with {{ provider.name }}
+                {% endif %}
+            </button>
+        </form>
+
+        <a href="{% url 'login' %}" class="cancel-btn">
+            Cancel and return to login
+        </a>
+
+        <div class="secure-note">
+            🔒 Secure authentication powered by Google OAuth
+        </div>
+
+    </div>
+</div>
+{% endblock %}

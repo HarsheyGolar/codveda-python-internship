@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Logged out — DjangoCart{% endblock %}
+
+{% block body_class %}complete-bg{% endblock %}
+
+{% block extra_css %}
+<style>
+    .complete-bg {
+        background: linear-gradient(145deg, #0b0e1a 0%, #1e1b4b 60%, #312e81 100%);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="relative min-h-full flex items-center justify-center p-4 py-12 overflow-hidden">
+    <div class="absolute top-10 left-16 w-56 h-56 bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
+
+    <div class="relative w-full max-w-md">
+        <div class="bg-white rounded-3xl shadow-2xl p-10 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="bg-indigo-100 w-20 h-20 rounded-full flex items-center justify-center">
+                    <i class="fas fa-right-from-bracket text-indigo-600 text-3xl"></i>
+                </div>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900 mb-3">You are logged out</h1>
+            <p class="text-gray-600 mb-8">Thanks for visiting DjangoCart. Sign in again to continue shopping.</p>
+            <a href="{% url 'login' %}" class="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3.5 rounded-xl transition text-sm mb-4">
+                Sign in
+            </a>
+            <a href="{% url 'home' %}" class="text-sm text-indigo-600 hover:text-indigo-800 font-semibold transition">
+                Back to home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

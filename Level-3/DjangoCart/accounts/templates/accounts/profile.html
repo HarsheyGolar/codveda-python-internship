@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+{% block title %}DjangoCart — My Account{% endblock %}
+
+{% block body_class %}profile-bg{% endblock %}
+
+{% block extra_css %}
+<style>
+    .profile-bg {
+        background: linear-gradient(135deg, #f0f4ff 0%, #e6e9ff 50%, #dbe0ff 100%);
+    }
+    .sidebar-link {
+        transition: all .2s ease;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+        background-color: #f3f4f6;
+        color: #4f46e5;
+        border-left: 3px solid #4f46e5;
+    }
+    .card-hover {
+        transition: transform .3s, box-shadow .3s;
+    }
+    .card-hover:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+    .tab-content {
+        display: none;
+    }
+    .tab-content.active {
+        display: block;
+    }
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 100%;
+            display: flex;
+            overflow-x: auto;
+            border-radius: 0;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+        .sidebar-link {
+            border-left: none !important;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            border-bottom: 2px solid #4f46e5;
+            background: transparent;
+            color: #4f46e5;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row gap-6">
+        <aside class="w-full md:w-64 bg-white rounded-2xl shadow-sm p-4 h-fit">
+            <div class="text-center mb-6">
+                <i class="fas fa-user text-4xl text-gray-400 w-20 h-20 rounded-full mx-auto border-4 border-indigo-200 flex items-center justify-center"></i>
+                <h2 class="mt-3 font-bold text-lg">{{ user.get_full_name|default:user.username }}</h2>
+                <p class="text-gray-500 text-sm">{{ user.email }}</p>
+            </div>
+            <nav class="space-y-1 sidebar">
+                <a href="#" onclick="switchTab('overview', event)" class="sidebar-link active flex items-center py-3 px-4 rounded-lg text-sm font-medium text-gray-600">
+                    <i class="fas fa-th-large w-6 text-center"></i> Overview
+                </a>
+                <a href="#" onclick="switchTab('orders', event)" class="sidebar-link flex items-center py-3 px-4 rounded-lg text-sm font-medium text-gray-600">
+                    <i class="fas fa-shopping-bag w-6 text-center"></i> Orders
+                </a>
+                <a href="#" onclick="switchTab('wishlist', event)" class="sidebar-link flex items-center py-3 px-4 rounded-lg text-sm font-medium text-gray-600">
+                    <i class="fas fa-heart w-6 text-center"></i> Wishlist
+                </a>
+                <a href="#" onclick="switchTab('addresses', event)" class="sidebar-link flex items-center py-3 px-4 rounded-lg text-sm font-medium text-gray-600">
+                    <i class="fas fa-map-marker-alt w-6 text-center"></i> Addresses
+                </a>
+                <a href="#" onclick="switchTab('payments', event)" class="sidebar-link flex items-center py-3 px-4 rounded-lg text-sm font-medium text-gray-600">
+                    <i class="fas fa-credit-card w-6 text-center"></i> Payments
+                </a>
+                <a href="#" onclick="switchTab('settings', event)" class="sidebar-link flex items-center py-3 px-4 rounded-lg text-sm font-medium text-gray-600">
+                    <i class="fas fa-cog w-6 text-center"></i> Settings
+                </a>
+            </nav>
+            <div class="mt-6 pt-4 border-t border-gray-100">
+                <form method="post" action="{% url 'logout' %}" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center py-2 px-3 text-sm text-red-500 hover:text-red-700 transition bg-transparent border-0">
+                        <i class="fas fa-sign-out-alt w-6 text-center"></i> Logout
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <div class="flex-1">
+            <div id="overview" class="tab-content active">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Total Orders</p>
+                                <p class="text-2xl font-bold">{{ order_count|default:0 }}</p>
+                            </div>
+                            <div class="bg-indigo-100 p-3 rounded-full">
+                                <i class="fas fa-shopping-bag text-indigo-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Total Spent</p>
+                                <p class="text-2xl font-bold">{{ total_spent|default:"$0.00" }}</p>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-dollar-sign text-green-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Wishlist Items</p>
+                                <p class="text-2xl font-bold">{{ wishlist_count|default:0 }}</p>
+                            </div>
+                            <div class="bg-pink-100 p-3 rounded-full">
+                                <i class="fas fa-heart text-pink-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold mb-4">Recent Orders</h3>
+                <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-50 text-gray-500 font-medium">
+                                <tr>
+                                    <th class="py-3 px-5">Order #</th>
+                                    <th class="py-3 px-5">Date</th>
+                                    <th class="py-3 px-5">Status</th>
+                                    <th class="py-3 px-5">Total</th>
+                                    <th class="py-3 px-5"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-3 px-5 font-semibold">{{ order.number }}</td>
+                                    <td class="py-3 px-5">{{ order.date }}</td>
+                                    <td class="py-3 px-5">{{ order.status }}</td>
+                                    <td class="py-3 px-5 font-semibold">{{ order.total }}</td>
+                                    <td class="py-3 px-5"><a href="{{ order.url }}" class="text-indigo-600 hover:underline text-xs">View</a></td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="py-6 px-5 text-center text-gray-500">No orders yet</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="orders" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">All Orders</h3>
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <p class="text-gray-500 mb-4">Here's a list of all your orders.</p>
+                    <div class="space-y-4">
+                        {% for order in orders %}
+                        <div class="flex justify-between items-center border-b pb-3">
+                            <div>
+                                <p class="font-semibold">{{ order.number }}</p>
+                                <p class="text-xs text-gray-500">{{ order.date }}</p>
+                            </div>
+                            <span>{{ order.status }}</span>
+                            <span class="font-semibold">{{ order.total }}</span>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500">No orders yet</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div id="wishlist" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">My Wishlist</h3>
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <p class="text-gray-500 mb-6">Saved items you might love.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {% for item in wishlist_items %}
+                        <div class="flex items-center bg-gray-50 rounded-xl p-4">
+                            <img src="{{ item.image_url }}" alt="{{ item.name }}" class="w-14 h-14 rounded-lg object-cover">
+                            <div class="ml-4 flex-1">
+                                <p class="text-sm font-semibold">{{ item.name }}</p>
+                                <p class="text-xs text-gray-500">{{ item.price }}</p>
+                            </div>
+                            <button type="button" class="text-red-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                        {% empty %}
+                        <p class="text-gray-500">No wishlist items yet</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div id="addresses" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">Saved Addresses</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {% for address in addresses %}
+                    <div class="bg-white rounded-2xl shadow-sm p-6">
+                        <p class="font-semibold text-gray-800">{{ address.name }}</p>
+                        <p class="text-sm text-gray-500 mt-2">{{ address.details }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500">No saved addresses yet</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="payments" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">Payment Methods</h3>
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    {% for payment in payment_methods %}
+                    <div class="flex items-center justify-between p-4 border rounded-xl mb-3">
+                        <div class="flex items-center">
+                            <i class="{{ payment.icon }} text-2xl text-blue-800 mr-3"></i>
+                            <div>
+                                <p class="font-semibold">{{ payment.name }}</p>
+                                <p class="text-xs text-gray-500">{{ payment.details }}</p>
+                            </div>
+                        </div>
+                        <button type="button" class="text-red-500 hover:text-red-600"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500">No payment methods yet</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="settings" class="tab-content">
+                <h3 class="text-lg font-bold mb-4">Account Settings</h3>
+                <div class="bg-white rounded-2xl shadow-sm p-6">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" value="{{ user.get_full_name|default:user.username }}" class="mt-1 w-full border rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" value="{{ user.email }}" class="mt-1 w-full border rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Phone</label>
+                        <input type="text" value="" class="mt-1 w-full border rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    </div>
+                    <button type="button" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function switchTab(tabId, event) {
+        event.preventDefault();
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        event.currentTarget.classList.add('active');
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+    }
+</script>
+{% endblock %}

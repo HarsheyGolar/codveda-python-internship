@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Search — DjangoCart{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Search</h1>
+    {% if query %}
+    <p class="text-gray-500 mb-8">Results for “{{ query }}”</p>
+    {% else %}
+    <p class="text-gray-500 mb-8">Find products by name using the search bar above.</p>
+    {% endif %}
+
+    {% if products %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for product in products %}
+        {% include 'includes/product_card.html' %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="bg-white rounded-2xl shadow-sm p-10 text-center text-gray-500">No products found</div>
+    {% endif %}
+</div>
+{% endblock %}

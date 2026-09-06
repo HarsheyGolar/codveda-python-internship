@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}DjangoCart - Products{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Products</h1>
+    {% if products %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for product in products %}
+        {% include 'includes/product_card.html' %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="bg-white rounded-2xl shadow-sm p-10 text-center text-gray-500">No products available</div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Order Details — DjangoCart{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">Order Details</h1>
+    {% if order %}
+    <div class="bg-white rounded-2xl shadow-sm p-8">
+        <p class="font-semibold">{{ order.number }}</p>
+        <p class="text-sm text-gray-500 mt-2">{{ order.date }}</p>
+        <p class="mt-4">{{ order.status }}</p>
+        <p class="mt-2 font-bold text-indigo-600">{{ order.total }}</p>
+    </div>
+    {% else %}
+    <div class="bg-white rounded-2xl shadow-sm p-12 text-center text-gray-500">
+        Order details will appear here when an order is available.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

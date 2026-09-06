@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders — DjangoCart{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">My Orders</h1>
+    {% if orders %}
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div class="divide-y divide-gray-100">
+            {% for order in orders %}
+            <div class="p-6 flex items-center justify-between">
+                <div>
+                    <p class="font-semibold">{{ order.number }}</p>
+                    <p class="text-sm text-gray-500 mt-1">{{ order.date }}</p>
+                </div>
+                <span class="text-sm">{{ order.status }}</span>
+                <span class="font-semibold">{{ order.total }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="bg-white rounded-2xl shadow-sm p-12 text-center text-gray-500">
+        No orders yet
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

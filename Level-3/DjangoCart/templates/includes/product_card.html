@@ -1,0 +1,16 @@
+<a href="{% url 'product_detail' product.id %}" class="product-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition block">
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-56 object-cover">
+    {% else %}
+    <div class="w-full h-56 bg-gray-100 flex items-center justify-center text-gray-400"><i class="fas fa-box text-4xl"></i></div>
+    {% endif %}
+    <div class="p-5">
+        <p class="text-xs text-indigo-600 font-semibold">{{ product.category }}</p>
+        <h2 class="font-bold text-lg mt-1 text-gray-800">{{ product.name }}</h2>
+        <p class="text-sm text-gray-500 mt-2 line-clamp-2">{{ product.description }}</p>
+        <div class="flex items-center justify-between mt-4">
+            <span class="font-bold text-indigo-600">${{ product.price }}</span>
+            <span class="text-xs text-gray-500">{{ product.stock }} in stock</span>
+        </div>
+    </div>
+</a>

@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}DjangoCart — Your One-Stop Shop{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-bg {
+        background: linear-gradient(145deg, #0b0e1a 0%, #141630 45%, #312e81 100%);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <section class="hero-bg text-white relative overflow-hidden">
+        <div class="absolute top-10 right-10 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-10 w-40 h-40 bg-purple-500/10 rounded-full blur-2xl"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="inline-block bg-white/10 border border-white/20 text-indigo-200 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-5">
+                        <i class="fas fa-bolt mr-1"></i> New Season Arrivals
+                    </span>
+                    <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-white">
+                        Discover the<br><span class="text-indigo-300">Future</span> of Shopping
+                    </h1>
+                    <p class="text-gray-300 mt-5 text-lg max-w-md leading-relaxed">
+                        Shop the latest trends with unbeatable prices. Free shipping on orders over <strong class="text-white">$50</strong>.
+                    </p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="{% url 'product_list' %}" class="btn-primary bg-white text-gray-900 px-7 py-3.5 rounded-xl font-semibold text-sm hover:bg-gray-100 inline-flex items-center gap-2">
+                            Shop Now <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                        <a href="{% url 'product_list' %}" class="border border-white/30 text-white px-7 py-3.5 rounded-xl font-semibold text-sm hover:bg-white/10 transition inline-flex items-center gap-2">
+                            <i class="fas fa-play text-xs"></i> Learn More
+                        </a>
+                    </div>
+                    <div class="mt-10 flex items-center gap-6">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold">10k+</p>
+                            <p class="text-gray-400 text-xs">Happy Customers</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-bold">500+</p>
+                            <p class="text-gray-400 text-xs">Products</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-bold">24/7</p>
+                            <p class="text-gray-400 text-xs">Support</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="relative">
+                        <img src="media\products\Gaming_Headset.jpg" alt="Featured Product" class="rounded-3xl shadow-2xl object-cover w-full h-[420px]">
+                        <div class="absolute -bottom-5 -left-5 bg-white rounded-2xl p-4 shadow-xl hero-cards">
+                            <div class="flex items-center gap-3">
+                                <div class="bg-indigo-100 rounded-xl p-2.5">
+                                    <i class="fas fa-headphones text-indigo-600 text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-900 font-bold text-sm">Gaming Headsets</p>
+                                    <p class="text-gray-500 text-xs">$99.99</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur rounded-full px-3 py-1 text-xs font-bold text-indigo-600 shadow-lg">
+                            <i class="fas fa-star text-yellow-400 mr-1"></i> 4.8
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Categories</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Shop by Category</h2>
+                <p class="text-gray-500 mt-3 max-w-md mx-auto">Find exactly what you're looking for with our curated categories.</p>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="{% url 'product_list' %}" class="category-card bg-gray-50 rounded-2xl p-8 text-center hover:bg-indigo-50 transition border border-gray-100">
+                    <div class="bg-indigo-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
+                        <i class="fas fa-laptop text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="mt-4 font-semibold text-gray-800">Electronics</h3>
+                    <p class="text-gray-500 text-sm">156 items</p>
+                </a>
+                <a href="{% url 'product_list' %}" class="category-card bg-gray-50 rounded-2xl p-8 text-center hover:bg-pink-50 transition border border-gray-100">
+                    <div class="bg-pink-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
+                        <i class="fas fa-tshirt text-pink-600 text-2xl"></i>
+                    </div>
+                    <h3 class="mt-4 font-semibold text-gray-800">Fashion</h3>
+                    <p class="text-gray-500 text-sm">204 items</p>
+                </a>
+                <a href="{% url 'product_list' %}" class="category-card bg-gray-50 rounded-2xl p-8 text-center hover:bg-amber-50 transition border border-gray-100">
+                    <div class="bg-amber-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
+                        <i class="fas fa-gem text-amber-600 text-2xl"></i>
+                    </div>
+                    <h3 class="mt-4 font-semibold text-gray-800">Accessories</h3>
+                    <p class="text-gray-500 text-sm">98 items</p>
+                </a>
+                <a href="{% url 'product_list' %}" class="category-card bg-gray-50 rounded-2xl p-8 text-center hover:bg-emerald-50 transition border border-gray-100">
+                    <div class="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto">
+                        <i class="fas fa-home text-emerald-600 text-2xl"></i>
+                    </div>
+                    <h3 class="mt-4 font-semibold text-gray-800">Home & Living</h3>
+                    <p class="text-gray-500 text-sm">87 items</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-3xl p-10 text-center text-white relative overflow-hidden shadow-xl">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+                <span class="bg-white/20 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">Limited Time Offer</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold mt-4">Summer Sale! Up to 50% OFF</h2>
+                <p class="mt-2 text-indigo-100 text-sm">Use code <strong class="bg-white/30 px-2 py-1 rounded font-mono">SUMMER50</strong> at checkout</p>
+                <a href="{% url 'product_list' %}" class="inline-block mt-6 bg-white text-indigo-700 px-8 py-3 rounded-xl font-bold text-sm hover:bg-gray-100 transition shadow-lg">
+                    Shop the Sale <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <span class="text-indigo-600 font-semibold text-sm uppercase tracking-wider">Featured</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Trending Products</h2>
+                </div>
+                <a href="{% url 'product_list' %}" class="text-indigo-600 font-semibold text-sm hover:text-indigo-800 transition">View All <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                {% for product in products %}
+                <div class="product-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                    <div class="relative">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-56 object-cover">
+                        {% else %}
+                            <div class="w-full h-56 bg-gray-100 flex items-center justify-center">
+                                <i class="fas fa-image text-gray-300 text-4xl"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-5">
+                        <span class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">{{ product.category.name }}</span>
+                        <h3 class="text-gray-800 font-semibold mt-1 text-sm">{{ product.name }}</h3>
+                        <div class="flex items-center justify-between mt-4">
+                            <div>
+                                <span class="text-xl font-bold text-gray-900">${{ product.price }}</span>
+                            </div>
+                            <a href="{% url 'product_list' %}" class="bg-indigo-600 text-white p-2.5 rounded-xl text-sm hover:bg-indigo-700 transition">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="text-gray-500 col-span-full text-center">No products available</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
