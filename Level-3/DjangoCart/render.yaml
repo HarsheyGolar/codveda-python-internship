@@ -46,6 +46,18 @@ services:
       - key: DEFAULT_FROM_EMAIL
         sync: false
 
+      - key: DJANGO_SITE_DOMAIN
+        value: djangocart-1iro.onrender.com
+
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
+
 databases:
   - name: djangocart-db
     plan: free

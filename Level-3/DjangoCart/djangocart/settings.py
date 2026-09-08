@@ -19,12 +19,13 @@ SECRET_KEY = os.getenv(
     "django-insecure-development-only-change-this"
 )
 
-DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    "djangocart-1iro.onrender.com",
 ]
 
 render_host = os.getenv("RENDER_EXTERNAL_HOSTNAME")
@@ -39,6 +40,7 @@ if render_host:
 
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+GOOGLE_OAUTH_ENABLED = bool(GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET)
 
 
 # =========================================================
@@ -66,7 +68,7 @@ INSTALLED_APPS = [
 ]
 
 
-SITE_ID = 2
+SITE_ID = 1
 
 
 # =========================================================
@@ -123,6 +125,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "accounts.context_processors.authentication_settings",
             ],
         },
     },
@@ -216,14 +219,16 @@ STORAGES = {
 # Security / Production
 # =========================================================
 
-CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = [
+    "https://djangocart-1iro.onrender.com",
+]
 
 render_host = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 
 if render_host:
-    CSRF_TRUSTED_ORIGINS.append(
-        f"https://{render_host}"
-    )
+    render_origin = f"https://{render_host}"
+    if render_origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(render_origin)
 
 
 # =========================================================
