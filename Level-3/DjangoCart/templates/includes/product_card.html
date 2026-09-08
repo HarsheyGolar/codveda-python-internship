@@ -1,6 +1,8 @@
+{% load static %}
+
 <a href="{% url 'product_detail' product.id %}" class="product-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition block">
     {% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-56 object-cover">
+    <img src="{% static product.image.name %}" alt="{{ product.name }}" class="w-full h-56 object-cover">
     {% else %}
     <div class="w-full h-56 bg-gray-100 flex items-center justify-center text-gray-400"><i class="fas fa-box text-4xl"></i></div>
     {% endif %}

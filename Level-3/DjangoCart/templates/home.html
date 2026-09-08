@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}DjangoCart — Your One-Stop Shop{% endblock %}
 
@@ -51,7 +52,7 @@
                 </div>
                 <div class="relative">
                     <div class="relative">
-                        <img src="media\products\Gaming_Headset.jpg" alt="Featured Product" class="rounded-3xl shadow-2xl object-cover w-full h-[420px]">
+                        <img src="{% static 'products/Gaming_Headset.jpg' %}" alt="Featured Product" class="rounded-3xl shadow-2xl object-cover w-full h-[420px]">
                         <div class="absolute -bottom-5 -left-5 bg-white rounded-2xl p-4 shadow-xl hero-cards">
                             <div class="flex items-center gap-3">
                                 <div class="bg-indigo-100 rounded-xl p-2.5">
@@ -142,7 +143,7 @@
                 <div class="product-card bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                     <div class="relative">
                         {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-56 object-cover">
+                            <img src="{% static product.image.name %}" alt="{{ product.name }}" class="w-full h-56 object-cover">
                         {% else %}
                             <div class="w-full h-56 bg-gray-100 flex items-center justify-center">
                                 <i class="fas fa-image text-gray-300 text-4xl"></i>
