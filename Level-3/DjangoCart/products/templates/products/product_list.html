@@ -4,7 +4,12 @@
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    {% if query %}
+    <h1 class="text-3xl font-bold text-gray-900 mb-2">Search results</h1>
+    <p class="text-gray-500 mb-8">Results for "{{ query }}"</p>
+    {% else %}
     <h1 class="text-3xl font-bold text-gray-900 mb-8">Products</h1>
+    {% endif %}
     {% if products %}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {% for product in products %}
@@ -12,7 +17,14 @@
         {% endfor %}
     </div>
     {% else %}
-    <div class="bg-white rounded-2xl shadow-sm p-10 text-center text-gray-500">No products available</div>
+    <div class="bg-white rounded-2xl shadow-sm p-10 text-center text-gray-500">
+        {% if query %}
+        <p>No products found for "{{ query }}".</p>
+        <a href="{% url 'product_list' %}" class="inline-flex items-center mt-6 bg-indigo-600 text-white px-6 py-3 rounded-xl text-sm font-semibold hover:bg-indigo-700 transition">Browse all products</a>
+        {% else %}
+        No products available
+        {% endif %}
+    </div>
     {% endif %}
 </div>
 {% endblock %}
