@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: djangocart
+    runtime: python
+    plan: free
+
+    buildCommand: ./build.sh
+    startCommand: gunicorn djangocart.wsgi:application
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+
+      - key: SECRET_KEY
+        generateValue: true
+
+      - key: DEBUG
+        value: "False"
+
+      - key: DATABASE_URL
+        fromDatabase:
+          name: djangocart-db
+          property: connectionString
+
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+
+      - key: EMAIL_PORT
+        value: "587"
+
+      - key: EMAIL_HOST_USER
+        sync: false
+
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+
+      - key: EMAIL_USE_TLS
+        value: "True"
+
+      - key: DEFAULT_FROM_EMAIL
+        sync: false
+
+databases:
+  - name: djangocart-db
+    plan: free
