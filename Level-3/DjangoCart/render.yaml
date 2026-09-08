@@ -3,7 +3,7 @@ services:
     name: djangocart
     runtime: python
     plan: free
-
+    rootDir: Level-3/DjangoCart
     buildCommand: ./build.sh
     startCommand: gunicorn djangocart.wsgi:application
 
