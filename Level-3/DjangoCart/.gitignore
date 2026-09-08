@@ -86,3 +86,9 @@ dist/
 .pyre/
 .mypy_cache/
 .ruff_cache/
+
+# =========================
+# Products_data.json
+# =========================
+
+products_data.json
