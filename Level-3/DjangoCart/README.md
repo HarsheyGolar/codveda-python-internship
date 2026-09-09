@@ -1,116 +1,285 @@
-# DjangoCart
+# 🛒 DjangoCart
 
-## A Django e-commerce internship project with production-ready deployment basics
+<div align="center">
 
-## Overview
+### A Production-Oriented Django E-Commerce Catalog & Authentication Platform
 
-DjangoCart is a Django 6.1.1 product-catalog application developed for the CodVeda internship. It provides a styled storefront, catalog search, username/password authentication, Google OAuth integration, password reset email support, and Render deployment configuration.
+**CodVeda Technologies · Python Development Internship · Level 3**
 
-The project remains in its required internship location:
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-6.1.1-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Production-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Render](https://img.shields.io/badge/Render-Deployed-46E3B7?style=for-the-badge&logo=render&logoColor=111111)](https://render.com/)
+
+**Catalog · Search · Authentication · Google OAuth · Password Reset · Testing · Deployment**
+
+[🚀 Live Demo](https://djangocart-1iro.onrender.com)
+
+</div>
+
+---
+
+## 📖 Overview
+
+**DjangoCart** is a Django-based e-commerce storefront and product-catalog application developed as part of the **CodVeda Python Development Internship — Level 3**.
+
+The project combines a structured Django backend with a server-rendered storefront, product/category models, ORM-powered search, username/password authentication, Google OAuth, password reset, Django administration, environment-driven configuration, local SQLite support, production PostgreSQL support, WhiteNoise, Gunicorn, automated tests, and Render deployment configuration.
+
+The repository also deliberately distinguishes implemented functionality from future work. The `cart` and `orders` applications contain scaffolding/templates, but the current project does **not** claim a complete persistent checkout, payment, or order-management system.
+
+---
+
+## ✨ Feature Matrix
+
+| Feature | Status | Notes |
+|---|:---:|---|
+| Product catalog | ✅ | Category + product models |
+| Product detail | ✅ | Individual product pages |
+| Product images | ✅ | Static catalog asset strategy |
+| Product search | ✅ | Django ORM search |
+| Synonym expansion | ✅ | Related terms are expanded |
+| Relevance ranking | ✅ | Weighted database expressions |
+| Price intent | ✅ | Cheap/budget/premium style intent |
+| Registration | ✅ | Django form-based |
+| Login | ✅ | Django authentication |
+| Logout | ✅ | CSRF-protected POST |
+| Protected profile | ✅ | `login_required` |
+| Google OAuth | ✅ | `django-allauth` |
+| Password reset | ✅ | Django + SMTP |
+| Django admin | ✅ | Standard admin |
+| SQLite local DB | ✅ | Automatic fallback |
+| PostgreSQL production DB | ✅ | `DATABASE_URL` |
+| WhiteNoise | ✅ | Production static files |
+| Gunicorn | ✅ | Production server |
+| Render deployment | ✅ | `render.yaml` + build script |
+| Automated tests | ✅ | Authentication/product/search coverage |
+| Persistent cart | 🟡 | Scaffolding exists; full workflow not wired |
+| Persistent orders | 🟡 | Scaffolding exists; checkout not implemented |
+| Payments | ❌ | Not implemented |
+| Durable media storage | ❌ | Future infrastructure |
+
+---
+
+## 🏗️ Architecture
 
 ```text
-codveda-python-internship/
-└── Level-3/
-    └── DjangoCart/
+                         ┌──────────────────────┐
+                         │       Browser        │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │     Django URLs      │
+                         └──────────┬───────────┘
+                                    │
+                 ┌──────────────────┼──────────────────┐
+                 │                  │                  │
+                 ▼                  ▼                  ▼
+          ┌────────────┐     ┌────────────┐     ┌────────────┐
+          │  Accounts  │     │  Products  │     │   Admin    │
+          └─────┬──────┘     └─────┬──────┘     └────────────┘
+                │                  │
+                │                  ▼
+                │          ┌──────────────┐
+                │          │ Django ORM   │
+                │          └──────┬───────┘
+                │                 │
+                └──────────┬──────┘
+                           ▼
+                 ┌─────────────────────┐
+                 │ SQLite / PostgreSQL │
+                 └─────────────────────┘
+
+        External integrations
+             ┌───────┴────────┐
+             ▼                ▼
+        Google OAuth       Gmail SMTP
 ```
 
-## Project Goals
+Production deployment:
 
-- Build a maintainable Django storefront.
-- Practice authentication, authorization, templates, ORM queries, and deployment.
-- Support SQLite for local development and PostgreSQL on Render.
-- Serve catalog images safely as committed static assets in production.
-- Keep deployment configuration simple and environment-driven.
+```text
+GitHub
+  │
+  ▼
+Render
+  ├── Python 3.12.10
+  ├── Django
+  ├── Gunicorn
+  ├── WhiteNoise
+  └── PostgreSQL
+```
 
-## Key Features
+---
 
-- Product and category catalog.
-- Product detail pages with stock and price information.
-- Case-insensitive keyword search with partial matching and synonym expansion.
-- Relevance-aware search ordering.
-- Registration with required username, email, and validated passwords.
-- Username/password login and CSRF-protected logout.
-- Google OAuth through django-allauth.
-- Authenticated profile page.
-- Gmail SMTP password reset flow.
-- Django admin.
-- WhiteNoise static-file serving on Render.
+## 🧰 Technology Stack
 
-The `cart` and `orders` applications currently contain placeholder files/templates and are not wired into the root URL configuration. Checkout, payment, and order persistence are therefore not presented as implemented features.
-
-## Live Demo
-
-https://djangocart-1iro.onrender.com
-
-## Technology Stack
+### Backend
 
 - Python 3.12.10
 - Django 6.1.1
 - django-allauth
+- Django ORM
+- Django authentication
+- Django Sites framework
+
+### Database
+
+- SQLite for local development
+- PostgreSQL for Render production
+
+### Authentication
+
+- Django authentication framework
+- `AuthenticationForm`
+- `django-allauth`
 - Google OAuth
-- PostgreSQL on Render
-- SQLite locally
+- Django password-reset framework
+
+### Deployment
+
+- Render
 - Gunicorn
 - WhiteNoise
-- Gmail SMTP
-- HTML, CSS, and JavaScript
+- `dj-database-url`
 
-## Architecture
+### Frontend
+
+- Django Templates
+- HTML
+- CSS
+- JavaScript
+
+### Supporting packages
+
+The repository pins packages including:
 
 ```text
-Browser
-   ↓
-Django views, templates, forms, and ORM
-   ↓
-SQLite locally / PostgreSQL on Render
+Django==6.1.1
+django-allauth==65.19.2
+dj-database-url==3.1.2
+gunicorn==26.2.0
+Pillow==12.3.0
+psycopg2-binary==2.9.12
+python-dotenv==1.2.3
+whitenoise==6.12.0
 ```
 
-Static catalog images are collected from `static/products/` and served by WhiteNoise. Django media storage remains available for local development, but Render's local filesystem is ephemeral and is not used as permanent catalog storage.
+See `requirements.txt` for the complete dependency set.
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```text
 codveda-python-internship/
 └── Level-3/
     └── DjangoCart/
         ├── manage.py
+        ├── build.sh
+        ├── render.yaml
+        ├── requirements.txt
+        ├── .python-version
+        ├── .gitignore
+        │
         ├── djangocart/
+        │   ├── settings.py
+        │   ├── urls.py
+        │   ├── asgi.py
+        │   └── wsgi.py
+        │
         ├── accounts/
+        │   ├── forms.py
+        │   ├── views.py
+        │   ├── context_processors.py
+        │   ├── tests.py
+        │   ├── management/
+        │   │   └── commands/
+        │   │       └── initialize_production.py
+        │   └── templates/accounts/
+        │
         ├── products/
+        │   ├── models.py
+        │   ├── views.py
+        │   ├── search.py
+        │   ├── admin.py
+        │   ├── tests.py
+        │   ├── migrations/
+        │   └── templates/products/
+        │
         ├── cart/
+        │   └── templates/cart/
+        │
         ├── orders/
+        │   └── templates/
+        │
         ├── templates/
         ├── static/
-        ├── media/
-        ├── requirements.txt
-        ├── render.yaml
-        ├── build.sh
-        └── .python-version
+        └── media/
 ```
 
-## Authentication System
+---
 
-Registration uses Django's `UserCreationForm`, requiring a username, email, password, and password confirmation. Passwords are hashed by Django's password hasher. Newly registered users are regular users and are logged in explicitly through Django's `ModelBackend`.
+# 🛍️ Product Catalog
 
-Login uses `AuthenticationForm`. Unknown usernames receive a registration prompt, while an existing username with an incorrect password receives Django's normal invalid-credentials error. Logout is a POST action protected by CSRF and redirects to the home page.
+The catalog is backed by two primary models.
 
-Google OAuth is provided by django-allauth. Password reset uses Django's built-in views and sends reset messages through the configured Gmail SMTP backend.
+### Category
 
-## User Roles & Permissions
+```text
+name
+description
+```
 
-- **Regular user:** Can register, sign in, view the catalog, search, and access their profile.
-- **Staff:** Can access the Django admin according to assigned permissions.
-- **Superuser:** Has full Django admin permissions.
+### Product
 
-The deployment initializer can create one configured superuser when bootstrap environment variables are supplied. It never replaces the password of an existing user.
+```text
+category
+name
+description
+price
+stock
+image
+created_at
+```
 
-## Product Management
+Products have a foreign-key relationship to categories and use `select_related("category")` in catalog/detail queries.
 
-Products belong to categories and contain a name, description, price, stock count, optional image, and creation timestamp. Product images for the existing catalog are tracked in `static/products/`. Templates convert database paths such as `products/Gaming_Headset.jpg` into static URLs such as `/static/products/Gaming_Headset.jpg`.
+The price is represented with Django's `DecimalField`, providing an appropriate database representation for monetary values.
 
-## Intelligent Search
+Products are ordered newest-first through model metadata.
 
-Search is a lightweight Django ORM implementation, not vector search. It supports case-insensitive partial matches across product names, descriptions, and category names. Multi-word searches are tokenized, common intent words are ignored, selected synonyms are expanded, and results are ranked with stronger weights for name and category matches. Price-intent words such as “cheap” and “premium” influence ordering.
+---
+
+# 🔎 Search Engine
+
+One of DjangoCart's strongest backend features is its lightweight relevance-aware search implementation.
+
+It is intentionally **not presented as vector search or AI search**. It is an ORM-based search engine using:
+
+```text
+Keyword tokenization
+        +
+Stop/intent-word filtering
+        +
+Synonym expansion
+        +
+Database filtering
+        +
+Weighted relevance
+        +
+Price intent
+        =
+Ranked QuerySet
+```
+
+## Search fields
+
+Queries can match against:
+
+- product name,
+- product description,
+- category name.
 
 Example:
 
@@ -118,63 +287,266 @@ Example:
 /products/?q=headphones
 ```
 
-## Cart & Orders
+## Synonym expansion
 
-The repository includes `cart` and `orders` app placeholders and presentation templates, but these apps are not currently connected to the root URL configuration and do not contain persistence models or checkout logic. They are documented as future implementation areas rather than claimed production functionality.
+The search module contains mappings such as:
 
-## Static & Media Strategy
-
-`STATIC_URL` is `/static/`, `STATICFILES_DIRS` points to the project `static/` directory, and `STATIC_ROOT` is `staticfiles/`. WhiteNoise uses compressed manifest storage in production.
-
-Existing catalog images are committed under `static/products/` because Render's application filesystem is ephemeral. The Product model is unchanged and still uses `media/products/` for uploaded media during local development.
-
-## Database Strategy
-
-When `DATABASE_URL` is present, Django uses the Render PostgreSQL database through `dj-database-url`. Without it, local development uses SQLite from `db.sqlite3`. Migrations are applied during deployment and no production database reset is performed.
-
-## Email / Password Reset
-
-Password reset uses Django's built-in authentication views and Gmail SMTP. SMTP host, port, username, password, TLS, and sender address are all environment variables. Site configuration is initialized for the active deployment domain so reset links do not use `example.com`.
-
-## Google OAuth
-
-Google credentials are supplied through `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. The `initialize_production` management command creates or updates one Google `SocialApp` and associates it with the configured Django Site. It is safe to run repeatedly and does not print secrets.
-
-Local development uses `127.0.0.1:8000`; Render uses `djangocart-1iro.onrender.com`.
-
-## Security
-
-- Passwords are hashed by Django.
-- Login, registration, and logout use CSRF protection.
-- Secrets are read from environment variables.
-- Production `DEBUG` is controlled by the `DEBUG` environment variable and is set to `False` in Render configuration.
-- Google and SMTP credentials are never stored in source code.
-- Both required authentication backends remain configured.
-- `.env`, virtual environments, SQLite databases, and collected static output are ignored by Git.
-
-## Local Development
-
-From the project directory:
-
-```powershell
-cd Level-3\DjangoCart
-py -3.12 -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py initialize_production
-python manage.py runserver
+```text
+mobile     → phone, smartphone
+cellphone  → phone, smartphone
+phone      → mobile, smartphone
+earbuds    → headphones, wireless
+charger    → charging, adapter
+laptop     → notebook, computer
+gaming     → gamer
+wireless   → bluetooth, cordless
+audio      → sound, music
+tv         → television
 ```
 
-Open `http://127.0.0.1:8000/`.
+This gives the catalog more useful matching than a simple exact-string lookup.
 
-## Environment Variables
+## Relevance scoring
 
-Use a local `.env` file or Render environment settings. Do not commit real values.
+The search gives stronger weights to:
+
+1. exact name matches,
+2. partial name matches,
+3. name token matches,
+4. category matches,
+5. description matches,
+6. synonym-derived matches.
+
+The implementation uses Django `Case`, `When`, `Q`, annotations and ordered QuerySets.
+
+## Price intent
+
+The search also understands price-oriented words:
+
+```text
+cheap
+budget
+affordable
+expensive
+premium
+```
+
+Low-price intent can order matching results by lower price, while high-price intent can prioritize higher-priced products.
+
+This is a deliberately lightweight approach that remains database-oriented and easy to understand.
+
+---
+
+# 🔐 Authentication
+
+DjangoCart uses Django's authentication framework rather than implementing password handling from scratch.
+
+## Registration
+
+The flow is:
+
+```text
+Registration Form
+       ↓
+Validation
+       ↓
+Create User
+       ↓
+Hash Password
+       ↓
+Ensure Regular User
+       ↓
+Login
+       ↓
+Profile
+```
+
+The test suite verifies that a newly registered user:
+
+- is created successfully,
+- has a valid hashed password,
+- is not staff,
+- is not a superuser,
+- is logged in after registration.
+
+## Login
+
+The login implementation uses Django's `AuthenticationForm`.
+
+The project differentiates between:
+
+- an unknown username → registration prompt,
+- an existing username with a wrong password → normal Django authentication error.
+
+## Logout
+
+Logout is performed through Django's authentication system and is tested to ensure the session is ended.
+
+## Profile
+
+The profile is protected using:
+
+```python
+@login_required
+```
+
+Unauthenticated users are redirected to the login page.
+
+---
+
+# 🔵 Google OAuth
+
+Google authentication is integrated through:
+
+```text
+django-allauth
+```
+
+Credentials are environment-driven:
 
 ```dotenv
-SECRET_KEY=
-DEBUG=False
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
+
+The project includes an idempotent production initialization command that configures the Google SocialApp and associates it with the configured Django Site.
+
+Secrets are not printed by the initializer.
+
+---
+
+# 📧 Password Reset
+
+DjangoCart uses Django's built-in password reset functionality.
+
+SMTP settings are environment-driven:
+
+```dotenv
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=
+EMAIL_HOST_PASSWORD=
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL=
+```
+
+The test suite overrides the email backend with Django's in-memory backend and verifies that a reset email is generated.
+
+---
+
+# 👥 Roles & Permissions
+
+DjangoCart uses Django's standard user roles.
+
+### Regular User
+
+Can browse the catalog, search, authenticate and access their profile.
+
+### Staff
+
+Can access Django administration according to assigned permissions.
+
+### Superuser
+
+Has full Django admin permissions.
+
+The deployment initializer can create a configured superuser from environment variables without replacing an existing user's password.
+
+---
+
+# 🗄️ Database Strategy
+
+DjangoCart is environment-aware.
+
+## Local
+
+If `DATABASE_URL` is unavailable:
+
+```text
+SQLite
+```
+
+is used.
+
+## Production
+
+When `DATABASE_URL` is available:
+
+```text
+PostgreSQL
+```
+
+is configured through:
+
+```text
+dj-database-url
+```
+
+This keeps local setup lightweight while allowing the deployed application to use a production relational database.
+
+---
+
+# 🖼️ Static & Media Architecture
+
+Static and media assets are intentionally treated differently.
+
+### Static
+
+```text
+STATIC_URL   = /static/
+STATIC_ROOT  = staticfiles/
+```
+
+The project uses WhiteNoise's compressed manifest storage for production static files.
+
+### Product assets
+
+Existing catalog images are stored under the project's static product assets so they remain available after deployment.
+
+### Media
+
+Django's media configuration remains available for local development.
+
+For a production marketplace with user-uploaded files, durable object storage would be a better long-term solution because Render's application filesystem is not intended to be permanent user-media storage.
+
+---
+
+# 🛡️ Security
+
+Security-related configuration includes:
+
+- Django password hashing,
+- CSRF middleware,
+- protected authentication flows,
+- environment-based secrets,
+- production `DEBUG=False`,
+- configured `ALLOWED_HOSTS`,
+- configured `CSRF_TRUSTED_ORIGINS`,
+- separate authentication backends,
+- credentials kept outside source code.
+
+Sensitive values should always be supplied through environment variables.
+
+Never commit:
+
+```text
+SECRET_KEY
+DATABASE_URL
+GOOGLE_CLIENT_SECRET
+EMAIL_HOST_PASSWORD
+DJANGO_SUPERUSER_PASSWORD
+```
+
+---
+
+# ⚙️ Environment Variables
+
+Example local configuration:
+
+```dotenv
+SECRET_KEY=your-secret
+DEBUG=True
+
 DATABASE_URL=
 
 GOOGLE_CLIENT_ID=
@@ -187,54 +559,78 @@ EMAIL_HOST_PASSWORD=
 EMAIL_USE_TLS=True
 DEFAULT_FROM_EMAIL=
 
-DJANGO_SITE_DOMAIN=
+DJANGO_SITE_DOMAIN=127.0.0.1:8000
+
 DJANGO_SUPERUSER_USERNAME=
 DJANGO_SUPERUSER_EMAIL=
 DJANGO_SUPERUSER_PASSWORD=
 ```
 
-## Render Deployment
+Use real credentials only in your local environment or deployment secret store.
 
-Render is configured with root directory:
+---
 
-```text
-Level-3/DjangoCart
+# 💻 Local Development
+
+From the project directory:
+
+```powershell
+cd Level-3\DjangoCart
 ```
 
-The deployment uses:
+Create a virtual environment:
 
-- `requirements.txt` for Python dependencies.
-- `build.sh` to install dependencies, collect static files, migrate, and run idempotent production initialization.
-- `render.yaml` for the web service, PostgreSQL database, root directory, environment variables, and Gunicorn command.
-- `.python-version` and `PYTHON_VERSION` for Python 3.12.10.
-
-The start command is:
-
-```text
-gunicorn djangocart.wsgi:application
+```powershell
+py -3.12 -m venv .venv
 ```
 
-## Deployment Troubleshooting
+Activate:
 
-- **Missing dependency:** Confirm `requirements.txt` is installed from the configured Render root.
-- **Wrong root directory:** Use `Level-3/DjangoCart`, not the repository root.
-- **Missing static images:** Run `collectstatic` and verify files exist under `static/products/`.
-- **Fresh PostgreSQL database:** Run migrations and the idempotent initializer; do not rerun a one-time product fixture.
-- **Google OAuth failure:** Check Google environment variables, OAuth redirect URIs, the Site domain, and the single Google SocialApp.
-- **Authentication failure:** Check `SITE_ID`, Site configuration, database migrations, and Render logs.
+```powershell
+.venv\Scripts\Activate.ps1
+```
 
-## Testing
+Install:
 
-The project includes focused tests for:
+```powershell
+pip install -r requirements.txt
+```
 
-- Registration, hashing, regular-user permissions, and automatic login.
-- Correct login, wrong-password errors, and unknown-user behavior.
-- Logout and authenticated profile access.
-- Password reset email generation.
-- Product listing and detail image URLs.
-- Search matching.
+Apply migrations:
+
+```powershell
+python manage.py migrate
+```
+
+Initialize deployment-related Django data:
+
+```powershell
+python manage.py initialize_production
+```
+
+Run the server:
+
+```powershell
+python manage.py runserver
+```
+
+Open:
+
+```text
+http://127.0.0.1:8000/
+```
+
+---
+
+# 🧪 Testing
 
 Run:
+
+```powershell
+python manage.py test
+```
+
+Recommended validation:
 
 ```powershell
 python manage.py check
@@ -242,31 +638,484 @@ python manage.py test
 python manage.py collectstatic --no-input
 ```
 
-## CodVeda Internship Objectives
+## Authentication coverage
 
-DjangoCart demonstrates Django project structure, models, forms, templates, authentication, database configuration, static assets, search, testing, environment-based settings, and deployment to Render with PostgreSQL.
+Tests cover:
 
-## Limitations
+- registration,
+- password hashing,
+- regular-user privileges,
+- automatic login,
+- successful login,
+- wrong-password behavior,
+- unknown-user behavior,
+- logout,
+- protected profile access,
+- password-reset email generation.
 
-- Render's free instance may spin down between requests.
-- Render's local filesystem is ephemeral; uploaded media is not durable.
-- The catalog is demo-scale.
-- Search is lightweight ORM ranking, not vector search.
-- Cart and order persistence/checkout are not currently implemented.
+## Product coverage
 
-## Future Improvements
+The product tests cover catalog/detail behavior, image/static URL handling and search-related behavior.
 
-- Durable object storage for user-uploaded media.
-- PostgreSQL full-text search.
-- Optional vector search and recommendations.
-- Payment processing and order tracking.
-- Product reviews and wishlists.
-- A complete cart and checkout workflow.
+This is important because the project is not solely dependent on manual browser testing.
 
-## Screenshots
+---
 
-No screenshots are included because no repository screenshots are currently available.
+# 🚀 Render Deployment
 
-## Author
+The repository contains Render configuration through:
 
-Harshey Golar
+```text
+render.yaml
+build.sh
+```
+
+The configured service uses:
+
+```text
+Root directory:
+Level-3/DjangoCart
+```
+
+Production startup:
+
+```text
+gunicorn djangocart.wsgi:application
+```
+
+The deployment configuration includes:
+
+- Python 3.12.10,
+- generated production secret,
+- `DEBUG=False`,
+- PostgreSQL,
+- Google OAuth environment variables,
+- Gmail SMTP environment variables,
+- Django Site domain,
+- optional superuser bootstrap variables.
+
+The database is provisioned as PostgreSQL.
+
+---
+
+# 🔄 Production Initialization
+
+The custom management command:
+
+```text
+accounts/management/commands/initialize_production.py
+```
+
+exists to make production bootstrap repeatable.
+
+It can configure deployment-specific:
+
+- Django Site information,
+- Google OAuth SocialApp,
+- superuser initialization.
+
+The command is designed to be safe to run repeatedly and does not expose credentials in its output.
+
+---
+
+# 🧭 Request Flows
+
+## Catalog
+
+```text
+Browser
+  ↓
+Django URL
+  ↓
+product_list()
+  ↓
+Product QuerySet
+  ↓
+Template
+  ↓
+HTML
+```
+
+## Search
+
+```text
+GET /products/?q=headphones
+             ↓
+       Normalize query
+             ↓
+          Tokenize
+             ↓
+     Expand synonyms
+             ↓
+      Build Q filters
+             ↓
+    Calculate relevance
+             ↓
+      Price intent
+             ↓
+       Ranked results
+```
+
+## Registration
+
+```text
+POST registration
+        ↓
+Validate
+        ↓
+Create user
+        ↓
+Hash password
+        ↓
+Login
+        ↓
+Profile
+```
+
+## Login
+
+```text
+POST credentials
+       ↓
+AuthenticationForm
+       ↓
+ ┌─────┴─────┐
+ │           │
+Valid       Invalid
+ │           │
+ ▼           ▼
+Home       Error
+```
+
+## Password reset
+
+```text
+Email address
+     ↓
+Django password-reset view
+     ↓
+Generate token
+     ↓
+SMTP email
+     ↓
+Reset link
+```
+
+---
+
+# 🧠 Important Design Decisions
+
+### Django ORM instead of raw SQL
+
+The relational nature of products/categories makes the ORM a natural fit and keeps queries portable.
+
+### `select_related()`
+
+Product views use related-object loading where appropriate to reduce unnecessary database queries.
+
+### SQLite + PostgreSQL
+
+SQLite keeps local development simple while PostgreSQL provides the production database target.
+
+### Environment-driven configuration
+
+Deployment credentials and infrastructure settings should not be coupled to source code.
+
+### WhiteNoise
+
+WhiteNoise provides a practical static-file serving strategy for the Render deployment.
+
+### Lightweight search
+
+The search implementation intentionally remains understandable and database-oriented instead of introducing an external search engine for a project of this scope.
+
+---
+
+# 🛒 Cart & Orders Scope
+
+The repository contains dedicated:
+
+```text
+cart/
+orders/
+```
+
+applications and presentation templates.
+
+However, the current implementation does **not** expose a complete persistent shopping-cart and checkout workflow.
+
+Therefore this README does not falsely describe:
+
+- persistent cart storage,
+- checkout,
+- payment processing,
+- order persistence,
+- order history,
+
+as completed features.
+
+They are natural next steps for the application.
+
+---
+
+# ⚠️ Current Limitations
+
+### Persistent cart
+
+Not currently implemented as a complete database-backed workflow.
+
+### Checkout
+
+No complete checkout pipeline exists at the current scope.
+
+### Payments
+
+No payment gateway is integrated.
+
+### Orders
+
+No complete persistent order lifecycle is currently implemented.
+
+### Search
+
+Search is relevance-aware keyword matching, not semantic/vector search.
+
+### Media
+
+Durable production media storage is not included.
+
+### Scale
+
+The current catalog is appropriate for an internship/demo application rather than a high-scale marketplace.
+
+---
+
+# 🗺️ Roadmap
+
+## Phase 1 — Commerce Core
+
+- [ ] Persistent cart
+- [ ] Cart quantity management
+- [ ] Stock validation
+- [ ] Checkout
+- [ ] Order creation
+- [ ] Order history
+
+## Phase 2 — Payments
+
+- [ ] Payment gateway
+- [ ] Payment model
+- [ ] Webhook verification
+- [ ] Failed-payment handling
+- [ ] Refund workflow
+
+## Phase 3 — Customer Experience
+
+- [ ] Wishlist
+- [ ] Reviews
+- [ ] Ratings
+- [ ] Saved addresses
+- [ ] Customer order dashboard
+
+## Phase 4 — Search
+
+- [ ] PostgreSQL full-text search
+- [ ] Typo tolerance
+- [ ] Search analytics
+- [ ] Faceted filtering
+- [ ] Optional semantic/vector search
+
+## Phase 5 — Infrastructure
+
+- [ ] Object storage
+- [ ] Background tasks
+- [ ] Caching
+- [ ] Rate limiting
+- [ ] Observability
+- [ ] CI/CD
+
+---
+
+# 🎓 What This Project Demonstrates
+
+DjangoCart demonstrates practical experience with:
+
+### Django
+
+- Project/app architecture
+- URL routing
+- Views
+- Templates
+- Forms
+- ORM
+- Migrations
+- Management commands
+- Authentication
+- Admin
+
+### Backend Engineering
+
+- Relational modeling
+- Query optimization
+- Relevance scoring
+- Search normalization
+- Environment configuration
+- Error-aware authentication flows
+
+### Security
+
+- Password hashing
+- CSRF protection
+- Secret management
+- Host/origin configuration
+- Production debug configuration
+
+### Deployment
+
+- Render
+- Gunicorn
+- PostgreSQL
+- WhiteNoise
+- Production initialization
+
+### Testing
+
+- Django `TestCase`
+- Authentication tests
+- Redirect assertions
+- Permission assertions
+- Email backend overrides
+- Product/search testing
+
+---
+
+# 🎓 CodVeda Internship Context
+
+**DjangoCart** was developed as part of the:
+
+> **CodVeda Technologies — Python Development Internship**
+
+### Level 3
+
+The project represents a move from standalone Python scripting toward structured web-application engineering.
+
+The overall stack can be summarized as:
+
+```text
+Python
+  +
+Django
+  +
+ORM
+  +
+Authentication
+  +
+Database
+  +
+Search
+  +
+Testing
+  +
+Deployment
+```
+
+---
+
+# 🌍 Live Demo
+
+**DjangoCart:**  
+https://djangocart-1iro.onrender.com
+
+> Render free-tier services may sleep when inactive, so an initial request after inactivity may take longer.
+
+---
+
+# 🧰 Useful Commands
+
+```powershell
+# Django health check
+python manage.py check
+
+# Create migrations
+python manage.py makemigrations
+
+# Apply migrations
+python manage.py migrate
+
+# Run development server
+python manage.py runserver
+
+# Run tests
+python manage.py test
+
+# Collect static files
+python manage.py collectstatic --no-input
+
+# Initialize production configuration
+python manage.py initialize_production
+```
+
+---
+
+# 🤝 Contribution Workflow
+
+A sensible extension workflow is:
+
+```text
+Fork
+  ↓
+Feature branch
+  ↓
+Implement feature
+  ↓
+Add tests
+  ↓
+python manage.py check
+  ↓
+python manage.py test
+  ↓
+Pull Request
+```
+
+For major features, tests should be developed alongside implementation.
+
+---
+
+# 📜 License
+
+No separate license file is documented for the project scope covered here.
+
+If the project is intended for public reuse or redistribution, add an explicit open-source license.
+
+---
+
+<div align="center">
+
+# 👤 Harshey Golar
+
+**Python Developer · AI/ML Enthusiast · Backend & Web Engineering**
+
+[![GitHub](https://img.shields.io/badge/GitHub-HarsheyGolar-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/HarsheyGolar)
+
+<br>
+
+```text
+┌──────────────────────────────────────────────────────────────┐
+│                                                              │
+│              DJANGOCART · DJANGO · PYTHON                    │
+│                                                              │
+│      Catalog • Search • Authentication • OAuth               │
+│          Testing • Security • Deployment                     │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+```
+
+**Built with Python & Django during the CodVeda Python Development Internship.**
+
+<sub>Designed as a maintainable internship project with a clear path toward a complete e-commerce platform.</sub>
+
+<br><br>
+
+⭐ **If this project helped you, consider starring the repository.**
+
+</div>
