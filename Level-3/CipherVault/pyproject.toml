@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ciphervault"
+version = "0.1.0"
+description = "A local-first CLI utility for secure file encryption and decryption."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "cryptography>=43.0.0",
+]
+
+[project.scripts]
+ciphervault = "ciphervault.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
